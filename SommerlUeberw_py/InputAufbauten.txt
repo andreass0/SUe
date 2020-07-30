@@ -1,0 +1,85 @@
+AUFBAUTEN
+iD, Name, Orientierung (0 = horizontalBoden, 1 = horizontalDach, 2 = vertikal)
+
+aufbauW1
+1, AW01, 2
+aufbauW2
+2, IW01, 2
+aufbauW3
+3, IW02, 2
+aufbauW4
+4, IW03, 2
+aufbauB1
+5, FB01, 0
+aufbauD1
+6, AD01, 1
+
+SCHICHTEN
+iD, Name, rho, c, lambDa, Dicke
+
+AUSSEN
+Systemputz
+1, Systemputz, 1600, 1000, 0.8, 0.005
+epsF
+1, epsF, 15, 1500, 0.04, 0.16
+Stahlbeton14cm
+1, Stahlbeton14cm, 2400, 1000, 2.5, 0.14
+INNEN
+
+AUSSEN
+GKF
+2, GKF, 900, 1050, 0.21, 0.0125
+TWKF
+2, TWKF, 50, 1030, 0.037, 0.075
+GKF
+2, GKF, 900, 1050, 0.21, 0.0125
+INNEN
+
+AUSSEN
+GKF
+3, GKF, 900, 1050, 0.21, 0.0125
+TWKF
+3, TWKF, 50, 1030, 0.037, 0.075
+GKF
+3, GKF, 900, 1050, 0.21, 0.0125
+INNEN
+
+AUSSEN
+GKF
+4, GKF, 900, 1050, 0.21, 0.0125
+TWKF
+4, TWKF, 50, 1030, 0.037, 0.075
+GKF
+4, GKF, 900, 1050, 0.21, 0.0125
+INNEN
+
+AUSSEN
+Stahlbeton16cm
+5, Stahlbeton16cm, 2400, 1000, 2.5, 0.16 
+psBeton
+5, psBeton, 120, 1350, 0.06, 0.05
+TSD
+5, TSD, 150, 800, 0.045, 0.03
+Zementestrich
+5, Zementestrich, 1800, 1080, 1.11, 0.05
+Ausgleich
+5, Ausgleich, 50, 1800, 0.04, 0.005
+Parkett
+5, Parkett, 600, 2500, 0.15, 0.012
+INNEN
+
+AUSSEN
+Parkett
+6, Parkett, 600, 2500, 0.15, 0.012
+Ausgleich
+6, Ausgleich, 50, 1800, 0.04, 0.005
+Zementestrich
+6, Zementestrich, 1800, 1080, 1.11, 0.05
+TSD
+6, TSD, 150, 800, 0.045, 0.03
+psBeton
+6, psBeton, 120, 1350, 0.06, 0.05
+Stahlbeton16cm
+6, Stahlbeton16cm, 2400, 1000, 2.5, 0.16
+INNEN
+-ENDE-

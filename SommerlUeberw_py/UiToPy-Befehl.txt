@@ -1,0 +1,1 @@
+pyuic5 -x "C:\Users\Andreas\Documents\Woschitz\RWTplus\Bauphysik\FuE\SommerlUeberw\SommerlUeberw_py\mainGUI2.ui" -o "C:\Users\Andreas\Documents\Woschitz\RWTplus\Bauphysik\FuE\SommerlUeberw\SommerlUeberw_py\mainGUI2.py"

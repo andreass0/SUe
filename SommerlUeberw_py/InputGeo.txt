@@ -1,0 +1,22 @@
+BAUTEILE
+iD, Name, Breite, Höhe/Länge, Dicke, Lage, Azimut, Neigung, Absorptiosgrad
+
+w1
+120, w1, 4, 2.5, 0.09, 3, 0, 0, 0.5
+w2
+230, w2, 4, 2.5, 0.09, 3, 90, 0, 0.5
+w3
+311, w3, 4, 2.5, 0.305, 1, 180, 0, 0.5
+w4
+440, w4, 4, 2.5, 0.09, 3, 270, 0, 0.5
+b1
+550, b1, 4, 4, 0.307, 3, 0, 90, 0.5
+d1
+660, d1, 4, 4, 0.307, 3, 0, 90, 0.5
+
+FENSTER
+iD, Name, Breite, Höhe, Verwendung, uFE, eps, g, fS, fC, Azimut, Neigung
+
+Fe01
+1, Fe01, 1.23, 1.48, 0, 1.1, 2.5, 0.65, 1, 0.16, 180, 0
+ENDE
