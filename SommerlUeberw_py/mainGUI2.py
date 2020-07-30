@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'C:\Users\Andreas\Documents\Woschitz\RWTplus\Bauphysik\FuE\SommerlUeberw\SommerlUeberw_py\mainGUI2.ui'
+# Form implementation generated from reading ui file 'C:\Users\Andreas\Documents\Woschitz\RWTplus\Bauphysik\FuE\SommerlUeberw\SUe\SommerlUeberw_py\mainGUI2.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.0
 #
@@ -9,11 +9,7 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-from pyqtgraph import PlotWidget, plot
-import pyqtgraph as pg
-import sys  # We need sys so that we can pass argv to QApplication
-import os
-from random import randint
+
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -61,13 +57,13 @@ class Ui_MainWindow(object):
         self.startSimulation.setGeometry(QtCore.QRect(420, 510, 171, 41))
         self.startSimulation.setObjectName("startSimulation")
         self.label_9 = QtWidgets.QLabel(self.centralwidget)
-        self.label_9.setGeometry(QtCore.QRect(250, 100, 121, 21))
+        self.label_9.setGeometry(QtCore.QRect(250, 170, 121, 21))
         self.label_9.setObjectName("label_9")
         self.label_10 = QtWidgets.QLabel(self.centralwidget)
-        self.label_10.setGeometry(QtCore.QRect(40, 100, 121, 21))
+        self.label_10.setGeometry(QtCore.QRect(40, 170, 121, 21))
         self.label_10.setObjectName("label_10")
         self.SeehoeheInput = QtWidgets.QLineEdit(self.centralwidget)
-        self.SeehoeheInput.setGeometry(QtCore.QRect(120, 100, 113, 20))
+        self.SeehoeheInput.setGeometry(QtCore.QRect(120, 170, 113, 20))
         self.SeehoeheInput.setObjectName("SeehoeheInput")
         self.label_11 = QtWidgets.QLabel(self.centralwidget)
         self.label_11.setGeometry(QtCore.QRect(250, 450, 121, 21))
@@ -105,7 +101,7 @@ class Ui_MainWindow(object):
         self.labelSimpara.setFont(font)
         self.labelSimpara.setObjectName("labelSimpara")
         self.labelStandort = QtWidgets.QLabel(self.centralwidget)
-        self.labelStandort.setGeometry(QtCore.QRect(40, 80, 171, 16))
+        self.labelStandort.setGeometry(QtCore.QRect(40, 150, 171, 16))
         font = QtGui.QFont()
         font.setPointSize(10)
         font.setBold(True)
@@ -165,6 +161,25 @@ class Ui_MainWindow(object):
         self.graphWidget = PlotWidget(self.centralwidget)
         self.graphWidget.setGeometry(QtCore.QRect(290, 30, 471, 251))
         self.graphWidget.setObjectName("graphWidget")
+        self.label_21 = QtWidgets.QLabel(self.centralwidget)
+        self.label_21.setGeometry(QtCore.QRect(250, 80, 121, 21))
+        self.label_21.setText("")
+        self.label_21.setObjectName("label_21")
+        self.label_22 = QtWidgets.QLabel(self.centralwidget)
+        self.label_22.setGeometry(QtCore.QRect(40, 80, 121, 21))
+        self.label_22.setObjectName("label_22")
+        self.genauigkeitInput = QtWidgets.QLineEdit(self.centralwidget)
+        self.genauigkeitInput.setGeometry(QtCore.QRect(120, 80, 113, 20))
+        self.genauigkeitInput.setObjectName("genauigkeitInput")
+        self.label_25 = QtWidgets.QLabel(self.centralwidget)
+        self.label_25.setGeometry(QtCore.QRect(250, 110, 121, 21))
+        self.label_25.setObjectName("label_25")
+        self.startTempInput = QtWidgets.QLineEdit(self.centralwidget)
+        self.startTempInput.setGeometry(QtCore.QRect(120, 110, 113, 20))
+        self.startTempInput.setObjectName("startTempInput")
+        self.label_26 = QtWidgets.QLabel(self.centralwidget)
+        self.label_26.setGeometry(QtCore.QRect(40, 110, 121, 21))
+        self.label_26.setObjectName("label_26")
         MainWindow.setCentralWidget(self.centralwidget)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
         self.statusbar.setObjectName("statusbar")
@@ -173,36 +188,9 @@ class Ui_MainWindow(object):
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
-        self.x = list(range(100))  # 100 time points
-        self.y = [randint(0,100) for _ in range(100)]  # 100 data points
-
-        self.graphWidget.setBackground('w')
-
-        pen = pg.mkPen(color=(255, 0, 0))
-        self.data_line =  self.graphWidget.plot(self.x, self.y, pen=pen)
-        self.timer = QtCore.QTimer()
-        self.timer.setInterval(50)
-        self.timer.timeout.connect(self.update_plot_data)
-        self.timer.start()
-
-    def update_plot_data(self):
-
-        self.x = self.x[1:]  # Remove the first y element.
-        self.x.append(self.x[-1] + 1)  # Add a new value 1 higher than the last.
-
-        self.y = self.y[1:]  # Remove the first 
-        self.y.append(randint(0,100))  # Add a new random value.
-
-        self.data_line.setData(self.x, self.y)  # Update the data.
-
-    #    self.plot([1,2,3,4,5,6,7,8,9,10], [30,32,34,32,33,31,29,32,35,45])
-
-    #def plot(self, hour, temperature):
-    #    self.graphWidget.plot(hour, temperature)
-
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "SUe"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "SUe-Thermischer Komfort"))
         self.label_8.setText(_translate("MainWindow", "Sonnenschutz"))
         self.idealLueftenInput.setText(_translate("MainWindow", "1"))
         self.label_6.setText(_translate("MainWindow", "Nachtlüften"))
@@ -242,9 +230,12 @@ class Ui_MainWindow(object):
         self.label_23.setText(_translate("MainWindow", "Innere Lasten"))
         self.CustomInnereLastenInput.setText(_translate("MainWindow", "1"))
         self.label_24.setText(_translate("MainWindow", "1 = Ja //  0 = Nein"))
-
-
-        
+        self.label_22.setText(_translate("MainWindow", "Genauigkeit"))
+        self.genauigkeitInput.setText(_translate("MainWindow", "1e-3"))
+        self.label_25.setText(_translate("MainWindow", "°C"))
+        self.startTempInput.setText(_translate("MainWindow", "30"))
+        self.label_26.setText(_translate("MainWindow", "Starttemperatur"))
+from pyqtgraph import PlotWidget
 
 
 if __name__ == "__main__":

@@ -34,7 +34,7 @@ import time
 #from funcGUIstopBtn import stopBtn
 
 
-def SUe3(zeitschrittInput, idealLueftenInput, NachtlueftenInput, TaglueftenInput, SonnenschutzInput, ventNatInput, ventMechInput, SeehöheInput, CustomLueftenInput, CustomSonnenschutzInput, CutomInnereLastenInput):
+def SUe3(zeitschrittInput, genauigkeitInput, startTempInput, idealLueftenInput, NachtlueftenInput, TaglueftenInput, SonnenschutzInput, ventNatInput, ventMechInput, SeehöheInput, CustomLueftenInput, CustomSonnenschutzInput, CutomInnereLastenInput):
 
     "---------------Eingangswerte---------------"
 
@@ -56,7 +56,7 @@ def SUe3(zeitschrittInput, idealLueftenInput, NachtlueftenInput, TaglueftenInput
     bTiArray = np.zeros(sizeArray)
     # tOPArray = list() #Arrays zum Plotten initialisieren
     # zeitArray = list() #Arrays zum Plotten initialisieren
-    genauigkeit = 1e-3   #Simulationsgenauigkeit
+    genauigkeit = genauigkeitInput   #Simulationsgenauigkeit
     abbruch = False     #Initialisierung der Abbruchvariable für die Simulation
     maxDurchlaeufe = 1000 #maximale Anzahl der erlaubten Durchläufe bis Konvergenz eintritt
     index = list()   #Index für allgemeine Ausgabe
@@ -70,7 +70,7 @@ def SUe3(zeitschrittInput, idealLueftenInput, NachtlueftenInput, TaglueftenInput
     #tE = -10 #Außentemperatur in Grad Celsius
     #tSky = tE - 11
     tBoden = 10
-    tInt = 30 #interne Starttemperatur in Grad Celsius
+    tInt = startTempInput #interne Starttemperatur in Grad Celsius
     tInnenflaechen = tInt
     tC = tInt
     tR = tInt
@@ -586,9 +586,10 @@ def SUe3(zeitschrittInput, idealLueftenInput, NachtlueftenInput, TaglueftenInput
                 stunde = stunde + 1
             
         'Maueller Simulationsabbruch'
-        #stopBtn pressed in GUI
-        #abbruch = Ui_MainWindow.stopSimulation.clicked.connect(self.Stop)
-       
+        abbruchTxt = open('Abbruch.txt', 'r')
+        if abbruchTxt.read() == 'True':
+            abbruch = True
+
         if zeit == simDauer:
             simGenauigkeit = abs(tOPArray[0] - tOPArray[sizeArray-1]) / tOPArray[0]
             #print(simGenauigkeit)
