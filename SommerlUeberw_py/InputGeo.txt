@@ -1,5 +1,5 @@
 BAUTEILE
-iD, Name, Breite, Höhe/Länge, Dicke, Lage, Azimut, Neigung, Absorptiosgrad
+iD, Name, Breite, Höhe/Länge, Dicke, Lage, Azimut, Neigung, Absorptionsgrad
 
 w1
 120, w1, 4, 2.5, 0.09, 3, 0, 0, 0.5

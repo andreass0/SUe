@@ -349,7 +349,7 @@ class Ui_MainWindow(object):
         font = QtGui.QFont()
         font.setPointSize(10)
         self.progressBar.setFont(font)
-        self.progressBar.setProperty("value", 24)
+        self.progressBar.setProperty("value", 0)
         self.progressBar.setObjectName("progressBar")
         self.graphWidget = PlotWidget(self.centralwidget)
         self.graphWidget.setGeometry(QtCore.QRect(290, 30, 471, 251))
@@ -421,7 +421,16 @@ class Ui_MainWindow(object):
         self.counter = 0
 
     def update_plot_data(self):
-        #try:
+        #TO-DO: Add dynamich prograss bar via QTimer
+        #file = open('Abbruch.txt', 'r')
+        #if file.read() == 'False':
+        #    TIME_LIMIT = 100
+        #    count = 0
+        #    while count < TIME_LIMIT:
+        #        count += 1
+        #        time.sleep(0.3)
+        #        self.progressBar.setProperty("value", count)
+
         filename = 'graphTop.txt'
         if os.stat(filename).st_size != 0:
             if self.line == 0:
@@ -529,6 +538,7 @@ class Ui_MainWindow(object):
         worker1 = Worker(self.SUe3_fn_worker) # any other args, kwargs are passed to the run function
         # execute
         self.threadpool.start(worker1)
+
    
     def Stop(self):
         file = open('Abbruch.txt', 'w')
