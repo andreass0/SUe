@@ -51,6 +51,7 @@ def SUe3(zeitschrittInput, genauigkeitInput, startTempInput, idealLueftenInput, 
     tOPArray = np.zeros(sizeArray) #Arrays zum Plotten initialisieren
     tOPStunde = []  #Stundenausgabe der operativen Temperatur zur Validierung
     tOPStundeGraph = []  #Stundenausgabe der operativen Temperatur für dynamischen Graphen
+    
 
     zeitArray = np.zeros(sizeArray) #Arrays zum Plotten initialisieren
     bTiArray = np.zeros(sizeArray)
@@ -60,6 +61,7 @@ def SUe3(zeitschrittInput, genauigkeitInput, startTempInput, idealLueftenInput, 
     abbruch = False     #Initialisierung der Abbruchvariable für die Simulation
     maxDurchlaeufe = 1000 #maximale Anzahl der erlaubten Durchläufe bis Konvergenz eintritt
     index = list()   #Index für allgemeine Ausgabe
+    progBarIndex = list() #Index für Progress Bar. Startet nach jedem Simulationsdurchlauf neu
 
     'Randbedingungen'
     #tE = np.array([21.31, 20.18, 19.27, 18.53, 17.97, 17.62, 17.66, 19.07, 21.41, 23.94, 26.23, 28.08, 29.48, 30.47, 31.1, 31.45, 31.54, 31.3, 30.6, 29.42, 27.86, 26.09, 24.31, 22.69, 21.31])
@@ -575,10 +577,7 @@ def SUe3(zeitschrittInput, genauigkeitInput, startTempInput, idealLueftenInput, 
         print(cl.Bauteil.listBT[2].tBTe)
     
         zeit = zeit + zeitschritt
-        if len(index) == 0:
-            index.append(0)
-        else:
-            index.append(index[len(index) - 1] + 1)
+        
 
     
         for n in range(25):
@@ -589,10 +588,39 @@ def SUe3(zeitschrittInput, genauigkeitInput, startTempInput, idealLueftenInput, 
         abbruchTxt = open('Abbruch.txt', 'r')
         if abbruchTxt.read() == 'True':
             abbruch = True
+            open('index.txt', 'w').close()
+
+        'Plot Index'
+        if len(index) == 0 :
+            index.append(0)
+            open('index.txt', 'w').close()
+        else:
+            index.append(index[len(index) - 1] + 1)
+
+        'Index für progressbar'
+        #TO-DO: progBarIndex List-Variable auf Zeit-Variable ändern.
+        if len(progBarIndex) == 0 :
+            progBarIndex.append(0)
+            open('index.txt', 'w').close()
+        else:
+            progBarIndex.append(progBarIndex[len(progBarIndex) - 1] + 1)
+
+        #if len(progBarIndex) == 0 and abbruch != True:
+        if abbruch != True:
+            indexTxt = open('index.txt', 'a')
+            indexTxt.write(str(progBarIndex[len(progBarIndex)-1])+'\n')
+            indexTxt.close()
+        #elif len(progBarIndex) != 0 and abbruch != True:
+        #    indexTxt = open('index.txt', 'a')
+        #    indexTxt.write(str(index[len(progBarIndex)-1])+'\n')
+        #    indexTxt.close()
 
         if zeit == simDauer:
             simGenauigkeit = abs(tOPArray[0] - tOPArray[sizeArray-1]) / tOPArray[0]
-            #print(simGenauigkeit)
+            simGenauigkeitTxt = open('simGenauigkeit.txt', 'w')
+            simGenauigkeitTxt.write(str(simGenauigkeit))
+            simGenauigkeitTxt.close()
+
             if simGenauigkeit <= genauigkeit:
                 abbruch = True
             elif durchlauf == maxDurchlaeufe:
@@ -603,6 +631,7 @@ def SUe3(zeitschrittInput, genauigkeitInput, startTempInput, idealLueftenInput, 
                 stunde = 0
                 i = 0
                 tOPStunde = []
+                progBarIndex = []
                 durchlauf += 1
                 #print(durchlauf)
                 # abbruch = True

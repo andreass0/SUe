@@ -407,7 +407,7 @@ class Ui_MainWindow(object):
         self.stopSimulation.clicked.connect(self.Stop)
 
         self.x = list(range(96))  # initializing plot x axis
-        self.y = [30] * 96  # initializing plot y axis
+        self.y = [float(self.startTempInput.text())] * 96  # initializing plot y axis
 
         self.graphWidget.setBackground('w')
 
@@ -418,19 +418,26 @@ class Ui_MainWindow(object):
         self.timer.timeout.connect(self.update_plot_data)
         self.timer.start()
         self.line = 0
-        self.counter = 0
+        self.progress = 0
+        self.progressLimit = 100
 
     def update_plot_data(self):
-        #TO-DO: Add dynamich prograss bar via QTimer
-        #file = open('Abbruch.txt', 'r')
-        #if file.read() == 'False':
-        #    TIME_LIMIT = 100
-        #    count = 0
-        #    while count < TIME_LIMIT:
-        #        count += 1
-        #        time.sleep(0.3)
-        #        self.progressBar.setProperty("value", count)
+        #TO-DO: Add estimated calculation time and simGenauigkeit from simGenauigkeit.txt
+        abbruchTxt = open('Abbruch.txt', 'r')
+        if abbruchTxt.read() == 'False' and self.progress < self.progressLimit: #Umrechnung des Simulationsfortschrittes in Prozent
+            indexTxt = open('index.txt', 'r')
+            indexTxtLines = indexTxt.readlines()
+            for i in range(len(indexTxtLines)):
+                indexTxtLines[i] = indexTxtLines[i].replace('\n', '')
+            self.progress = float(indexTxtLines[len(indexTxtLines) - 1]) * float(self.zeitschrittInput.text()) / 86400 * 100
+            self.progressBar.setProperty("value", self.progress)
+            
+                
+        else:
+            self.progressBar.setProperty("value", 0)
+            self.progress = 0
 
+        #Dynamic graph plot update for Qtimer
         filename = 'graphTop.txt'
         if os.stat(filename).st_size != 0:
             if self.line == 0:
@@ -447,7 +454,7 @@ class Ui_MainWindow(object):
             self.data_line.setData(self.x, self.y)  # Update the data.
             file.close()
             self.line += 1
-            self.counter += 1
+            #self.counter += 1
             if self.line == len(fileLines):
                 self.line = 0
 
@@ -525,19 +532,23 @@ class Ui_MainWindow(object):
     #Hier finden sich alle selbst geschriebenen Funktionen zu den Events
 
     
-    def Simulation(self):
-        #SUe3(float(self.zeitschrittInput.text()), bool(int(self.idealLueftenInput.text())), bool(int(self.NachtlueftenInput.text())), 
-        #    bool(int(self.TaglueftenInput.text())), bool(int(self.SonnenschutzInput.text())), bool(int(self.NatLueftenInput.text())), bool(int(self.MechLueftenInput.text())), 
-        #    float(self.SeehoeheInput.text()), bool(int(self.CustomLueftenInput.text())), bool(int(self.CustomSonnenschutzInput.text())), bool(int(self.CustomInnereLastenInput.text())))
-
+    def Simulation(self):        
         file = open('Abbruch.txt', 'w')
         file.write('False')
         self.line = 0
         open('graphTop.txt', 'w').close()
+        
+        
+
+        #SUe3(float(self.zeitschrittInput.text()), float(self.genauigkeitInput.text()), float(self.startTempInput.text()), bool(int(self.idealLueftenInput.text())), bool(int(self.NachtlueftenInput.text())), 
+        #    bool(int(self.TaglueftenInput.text())), bool(int(self.SonnenschutzInput.text())), bool(int(self.NatLueftenInput.text())), bool(int(self.MechLueftenInput.text())), 
+        #    float(self.SeehoeheInput.text()), bool(int(self.CustomLueftenInput.text())), bool(int(self.CustomSonnenschutzInput.text())), bool(int(self.CustomInnereLastenInput.text())))
 
         worker1 = Worker(self.SUe3_fn_worker) # any other args, kwargs are passed to the run function
         # execute
         self.threadpool.start(worker1)
+
+        
 
    
     def Stop(self):
@@ -545,6 +556,8 @@ class Ui_MainWindow(object):
         file.write('True')
         self.line = 0
         open('graphTop.txt', 'w').close()
+        
+        
 
 if __name__ == "__main__":
     import sys
