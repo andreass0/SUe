@@ -728,6 +728,8 @@ def SUe3(zeitschrittInput, genauigkeitInput, startTempInput, idealLueftenInput, 
     ##plt.legend(bbox_to_anchor=(1.02, 1), borderaxespad=0)
 
     plt.show()
-    plt.savefig('plot.pdf')
+    plt.savefig('plot.jpg')
+    time.sleep(5)
+    plt.close()
 
     
