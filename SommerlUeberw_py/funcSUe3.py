@@ -10,6 +10,7 @@ import numpy as np
 from numpy.linalg import multi_dot
 # from funcSchichtmatrix import schichtmatrix
 import math
+import time
 '------Funktionen für Input Übergabe------'
 from funcInputNutzungTxt import readInputNutzung
 from funcInputGeoTxt import readInputGeo
@@ -26,8 +27,8 @@ from funcWriteTxt import writeTxt
 from funcGeneralWriteTxt import generalWriteTxt
 from funcStrahlungFenster import strahlungFenster
 from funcStrahlungBauteil import strahlungBauteil
+from funcEstimatedCalcTime import calcTime
 #from funcInterpol import interpol
-import time
 '------Funktionen und Klassen aus GUI------'
 #from PyQt5 import QtCore, QtGui, QtWidgets
 #import mainGUI
@@ -331,6 +332,9 @@ def SUe3(zeitschrittInput, genauigkeitInput, startTempInput, idealLueftenInput, 
     #while zeit < simDauer and abbruch != True:
     while abbruch != True:
     
+        'Setting timer'
+        if zeit == 0:
+            startTime = time.perf_counter()
     # #     # print(i)
     # #     # print(zeit)
         'Berechnung der Außentemperatur zum jeweiligen Zeitschritt'
@@ -617,24 +621,27 @@ def SUe3(zeitschrittInput, genauigkeitInput, startTempInput, idealLueftenInput, 
 
         if zeit == simDauer:
             simGenauigkeit = abs(tOPArray[0] - tOPArray[sizeArray-1]) / tOPArray[0]
-            simGenauigkeitTxt = open('simGenauigkeit.txt', 'w')
-            simGenauigkeitTxt.write(str(simGenauigkeit))
-            simGenauigkeitTxt.close()
+            #simGenauigkeitTxt = open('simGenauigkeit.txt', 'w')
+            #simGenauigkeitTxt.write(str(simGenauigkeit))
+            #simGenauigkeitTxt.close()
 
             if simGenauigkeit <= genauigkeit:
                 abbruch = True
+                calcTime(startTime, simGenauigkeit, genauigkeit, durchlauf)
+
             elif durchlauf == maxDurchlaeufe:
-                #print(durchlauf)
                 abbruch = True
+                calcTime(startTime, simGenauigkeit, genauigkeit, durchlauf)
+
             else:
                 zeit = 0
                 stunde = 0
                 i = 0
                 tOPStunde = []
                 progBarIndex = []
+                calcTime(startTime, simGenauigkeit, genauigkeit, durchlauf)
                 durchlauf += 1
-                #print(durchlauf)
-                # abbruch = True
+                
         
             
     print(durchlauf)            
@@ -660,6 +667,8 @@ def SUe3(zeitschrittInput, genauigkeitInput, startTempInput, idealLueftenInput, 
     cl.Schicht.listSchicht = []
     cl.Fenster.listFe = []
     #open('graphTop.txt', 'w').close()
+
+    'Berechnungsdauer'
 
 
     "Ploteinstellungen"
@@ -729,7 +738,6 @@ def SUe3(zeitschrittInput, genauigkeitInput, startTempInput, idealLueftenInput, 
 
     plt.show()
     plt.savefig('plot.jpg')
-    time.sleep(5)
     plt.close()
 
     
