@@ -15,7 +15,7 @@ def calcTime(startTime, simGenauigkeitIst, simGenauigkeitSoll, durchlauf):
     simGenauigkeitIst = round(simGenauigkeitIst, 7)
     timeTxt.write('Die Simulationsdauer von Durchlauf ' + str(durchlauf) + ' betrug ' + str(calcTime) + ' Sekunden.\n')
     timeTxt.write('Die Simulationsgenauigkeit von Durchlauf ' + str(durchlauf) + ' beträgt ' + str(simGenauigkeitIst)+'.\n')
-    deltaSim = simGenauigkeitIst - simGenauigkeitSoll/simGenauigkeitSoll
+    deltaSim = (simGenauigkeitIst - simGenauigkeitSoll)/simGenauigkeitSoll
     if deltaSim <= 0:
         deltaSim = 0
     else:
@@ -26,9 +26,9 @@ def calcTime(startTime, simGenauigkeitIst, simGenauigkeitSoll, durchlauf):
     timeTxt.write('Die vorraussichtliche Rechendauer beträgt ' + str(estimCalcTime) + ' Sekunden.\n')
     timeTxt.close()
 
-#for i in range(2):
-#    startTime = time.perf_counter()
-#    simGenauigkeitIst = 0.002
-#    simGenauigkeitSoll = 0.001
-#    calcTime(startTime, simGenauigkeitIst, simGenauigkeitSoll, 1)
-#    print(i)
+for i in range(2):
+    startTime = time.perf_counter()
+    simGenauigkeitIst = 0.002
+    simGenauigkeitSoll = 0.001
+    calcTime(startTime, simGenauigkeitIst, simGenauigkeitSoll, 1)
+    print(i)

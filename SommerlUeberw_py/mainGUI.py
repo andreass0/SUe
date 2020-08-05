@@ -532,6 +532,7 @@ class Ui_MainWindow(object):
         self.CustomSonnenschutzInput.setText(_translate("MainWindow", "0"))
         self.label_13.setText(_translate("MainWindow", "Mech. Lüftung"))
         self.label_10.setText(_translate("MainWindow", "Seehöhe"))
+        self.SeehoeheInput.setText(_translate("MainWindow", "172"))
         self.label_15.setText(_translate("MainWindow", "1 = Ja //  0 = Nein"))
         self.labelStandort.setText(_translate("MainWindow", "Standort"))
         self.label_24.setText(_translate("MainWindow", "1 = Ja //  0 = Nein"))
