@@ -1,0 +1,3 @@
+Die Simulationsdauer von Durchlauf 5 betrug 43.1 Sekunden.
+Die Simulationsgenauigkeit von Durchlauf 5 beträgt 6.61e-05.
+Die vorraussichtliche Rechendauer beträgt 0.0 Sekunden.
